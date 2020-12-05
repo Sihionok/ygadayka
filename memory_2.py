@@ -1,9 +1,14 @@
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+import config
+import conf_games
+import time
 key = "c4cf0a0661e38f87149ffdb72f81e97ef81fd4fec7c597d196bdc4e9a10291e328b0ea49cbd92693bd805"
 # Авторизуемся как сообщество
 vk = vk_api.VkApi(token=key)
+
+@bot.message_handler(content_types=['text'])
 
 
 def send_message(user_id, message, file_vk_url = None, keyboard = None):
@@ -52,7 +57,12 @@ ping_keyboard = generate_keyboard(['назад','пинг'], w=1)
 users = {} #       kryakrya
 
     # Работа с сообщениями
-
+def get_message(message):
+    if message.text.lower() == 'привет': 
+        bot.send_message(message.name_id, 'хай')
+    elif  message.text.lower() == 'угадай число': 
+        bot.send_message(message.name_id, conf_games.random_guesses(message))
+  
   def random_guesses(message):
   guesses_made = 0
 

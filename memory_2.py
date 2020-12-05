@@ -71,5 +71,31 @@ for event in longpoll.listen():
                 send_message(user_id, 'понг',  keyboard = ping_keyboard )
             else:
                 send_message(user_id, 'Привет',  keyboard = main_keyboard )
-            
+
+                
+def random_guesses(message):
+  guesses_made = 0
+
+  name = str(message.chat.first_name) + " " + str(message.chat.last_name)
+
+  number = random.randint(1, 30)
+    bot.send_message(message.chat.id, '{0}, я загадал число между 1 и 30. Сможешь угадать?'.format(name))
+
+  while guesses_made < 6:
+
+     bot.send_message(message.chat.id, "Введите число")
+    guess = int(message.text)
+
+    guesses_made += 1
+
+    if guess < number:
+        bot.send_message(message.user_id, 'Твое число меньше того, что я загадал.')
+
+    if guess > number:
+        bot.send_message(message.user_id, 'Твое число больше загаданного мной.')
+
+    if guess == number:
+        bot.send_message(message.user_id, 'Ух ты, {0}! Ты угадал мое число, использовав {1} попыток!'.format(name, guesses_made))
+    else:
+        bot.send_message(message.user_id, 'А вот и не угадал! Я загадал число {0}'.format(number))            
             

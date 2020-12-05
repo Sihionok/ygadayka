@@ -1,9 +1,10 @@
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
-key = "be798d82703344fac674442408d2b87b8d781425e22541dc3c78475e179a1d068bb1b01a17b021b7ff0da"
+key = "c4cf0a0661e38f87149ffdb72f81e97ef81fd4fec7c597d196bdc4e9a10291e328b0ea49cbd92693bd805"
 # Авторизуемся как сообщество
 vk = vk_api.VkApi(token=key)
+
 
 def send_message(user_id, message, file_vk_url = None, keyboard = None):
                 from random import randint
@@ -51,29 +52,8 @@ ping_keyboard = generate_keyboard(['назад','пинг'], w=1)
 users = {} #       kryakrya
 
     # Работа с сообщениями
-longpoll = VkLongPoll(vk)
-# Основной цикл
-for event in longpoll.listen():
-    # Если пришло новое сообщение
-    if event.type == VkEventType.MESSAGE_NEW:
-        # Если оно имеет метку для меня( то есть бота)
-        if event.to_me:
-            user_id = event.user_id
-            text = event.text.lower()
-            if text == 'об авторе':
-                send_message(user_id, 'Damir',  keyboard = back_keyboard )
-            elif text == 'игра':
-                send_message(user_id, 'GAME',  keyboard = game_keyboard )
-                
-            elif text == 'тест':
-                send_message(user_id, 'тест',  keyboard = back_keyboard )
-            elif text == 'пинг':
-                send_message(user_id, 'понг',  keyboard = ping_keyboard )
-            else:
-                send_message(user_id, 'Привет',  keyboard = main_keyboard )
 
-                
-def random_guesses(message):
+  def random_guesses(message):
   guesses_made = 0
 
   name = str(message.chat.first_name) + " " + str(message.chat.last_name)
@@ -97,5 +77,33 @@ def random_guesses(message):
     if guess == number:
         bot.send_message(message.user_id, 'Ух ты, {0}! Ты угадал мое число, использовав {1} попыток!'.format(name, guesses_made))
     else:
-        bot.send_message(message.user_id, 'А вот и не угадал! Я загадал число {0}'.format(number))            
+        bot.send_message(message.user_id, 'А вот и не угадал! Я загадал число {0}'.format(number)) 
+  
+  
+  
+  
+  
+  
+  longpoll = VkLongPoll(vk)
+# Основной цикл
+for event in longpoll.listen():
+    # Если пришло новое сообщение
+    if event.type == VkEventType.MESSAGE_NEW:
+        # Если оно имеет метку для меня( то есть бота)
+        if event.to_me:
+            user_id = event.user_id
+            text = event.text.lower()
+            if text == 'об авторе':
+                send_message(user_id, 'Damir',  keyboard = back_keyboard )
+            elif text == 'игра':
+                send_message(user_id, 'GAME',  keyboard = game_keyboard )
+                
+            elif text == 'тест':
+                send_message(user_id, 'тест',  keyboard = back_keyboard )
+            elif text == 'пинг':
+                send_message(user_id, 'понг',  keyboard = ping_keyboard )
+            else:
+                send_message(user_id, 'Привет',  keyboard = main_keyboard )
+
+                
             

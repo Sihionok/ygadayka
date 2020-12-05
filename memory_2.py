@@ -77,7 +77,7 @@ users = {} #       kryakrya
     if guess == number:
         bot.send_message(message.user_id, 'Ух ты, {0}! Ты угадал мое число, использовав {1} попыток!'.format(name, guesses_made))
     else:
-        bot.send_message(message.user_id, 'А вот и не угадал! Я загадал число {0}'.format(number)) 
+        bot.send_message(message.user_id, 'не угадал! Я загадал число {0}'.format(number))
   
   
   
